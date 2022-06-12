@@ -1,105 +1,71 @@
-public class VetorFila<T> implements IntefaceFila<T> {
+public class VetorFila<T> {
 
-  int tamanho;
   private Object[] vetor;
-  int primeiro;
-  int ultimo;
+  int inicio;
+  int fim;
+  int tamanho;
 
   public VetorFila(int tamanho) {
-    this.tamanho = tamanho;
     this.vetor = new Object[tamanho];
-    this.primeiro = -1;
-    this.ultimo = -1;
+    this.tamanho = 0;
+    this.inicio = 0;
+    this.fim = -1;
   }
 
-  @Override
-  public void adicionar(T valor) throws Exception {
-    int ultimoTemp = (ultimo + 1) % tamanho;
-
-    if (ultimoTemp == primeiro) {
-      throw new Exception("\nErro: Fila cheia[" + valor + "]\n");
-    }
-
-    ultimo = ultimoTemp;
-    vetor[ultimo] = valor;
-
-    if (primeiro == -1) {
-      primeiro = 0;
-    }
-  }
-
-  @SuppressWarnings("unchecked")
-  public T remove() throws Exception {
-    System.out.println("removendo!");
-    T retorno;
-
-    if (primeiro == -1) {
-      throw new Exception("\nErro: fila vazia!!!!\n");
-    }
-
-    retorno = (T) vetor[primeiro];
-
-    if (primeiro == ultimo) {
-      primeiro = -1;
-      ultimo = -1;
+  void enfileirar(Object valor) {
+    if (tamanho == vetor.length) {
+      System.out.println("Fila cheia");
     } else {
-      primeiro = (primeiro + 1) % tamanho;
+      if (fim == vetor.length - 1) {
+        fim = -1;
+      }
     }
 
-    return retorno;
+    fim++;
+    vetor[fim] = valor;
+    tamanho++;
   }
 
-  @SuppressWarnings("unchecked")
-  public T consultar() throws Exception {
-    System.out.println("Consultando elemento do inicio");
-    T retorno;
-
-    if (primeiro == -1) {
-      throw new Exception("\nErro: Fila vazia!!!\n");
-    }
-
-    retorno = (T) vetor[primeiro];
-
-    return retorno;
-  }
-
-  @Override
-  public boolean cheia() {
-    int ultimoTemp = (ultimo + 1) % tamanho;
-
-    if (ultimoTemp == primeiro) {
-      return true;
+  Object desenfileirar() {
+    if (!isEmpty()) {
+      Object tep = vetor[inicio];
+      vetor[inicio] = null;
+      inicio++;
+      if (inicio == vetor.length) {
+        inicio = 0;
+      }
+      tamanho--;
+      return tep;
     } else {
-      return false;
+      System.out.println("Fila vazia");
+      return null;
     }
   }
 
-  @Override
-  public boolean vazia() {
-    if (primeiro == -1) {
-      return true;
+  public boolean isEmpty() {
+    return tamanho == 0;
+  }
+
+  public Object frente() {
+    if (!isEmpty()) {
+      return vetor[inicio];
     } else {
-      return false;
+      System.out.println("Fila vazia");
+      return null;
     }
   }
 
-  @Override
-  public void mostrar() {
-    System.out.println("\nExibindo...\n");
+  public int size() {
+    System.out.println("Quantidade de elementos :" + tamanho);
+    return tamanho;
+  }
 
-    int i = primeiro;
-
-    if (primeiro == -1) {
-      return;
+  public void imprimir() {
+    for (int i = 0; i < tamanho; i++) {
+      System.out.println(frente() + " ");
+      enfileirar(desenfileirar());
     }
 
-    while (i != ultimo) {
-      System.out.println("posicao " + i + " = " + vetor[i] + "\n");
-
-      i = (i + 1) % tamanho;
-    }
-    System.out.println("posicao " + i + " = " + vetor[i] + "\n");
-
-    System.out.println("inicio = " + primeiro + "  fim = " + ultimo + "\n");
+    System.out.println();
   }
 }

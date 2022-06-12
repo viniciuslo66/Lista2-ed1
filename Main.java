@@ -1,31 +1,48 @@
+import javax.swing.JOptionPane;
+
 public class Main {
 
-  public static void main(String[] args) {
-    int retorno = 1;
+  public static <T> void main(String[] args) {
 
-    InterfacePilha<Integer> pilha = new VetorPilha<Integer>(3);
+    VetorFila<T> fila = new VetorFila<T>(3);
 
-    pilha.empilhar(1);
-    pilha.empilhar(2);
-    pilha.empilhar(3);
+    fila.enfileirar("A");
+    fila.enfileirar("B");
+    fila.enfileirar("C");
+    fila.imprimir();
+    fila.desenfileirar();
+    fila.imprimir();
 
-    retorno = pilha.consultarPilha();
-    System.out.println("Elemento do topo: " + retorno);
+    VetorPilha<T> pilha = new VetorPilha<T>(3);
+    boolean continua = true;
 
-    pilha.mostrar();
-
-    retorno = pilha.desempilhar();
-    System.out.println("Desempilhado: " + retorno);
-
-    retorno = pilha.desempilhar();
-    System.out.println("Desempilhado: " + retorno);
-
-    retorno = pilha.desempilhar();
-    System.out.println("Desempilhado: " + retorno);
-
-    pilha.mostrar();
-
-    System.out.println("Cheio?" + pilha.cheia());
-    System.out.println("Vazio?" + pilha.vazia());
+    while (continua) {
+      String escolha = JOptionPane.showInputDialog("1: Inserir  \n2: Remover \n3: Exibir \n4: Quantidade \n5: Topo \n6: Encerrar");
+      switch (escolha) {
+        case "1":
+          String valor = JOptionPane.showInputDialog("Qual o valor a ser inserido?");
+          pilha.push(valor);
+          break;
+        case "2":
+          JOptionPane.showMessageDialog(null, "O valor removido foi:" + pilha.pop());
+          break;
+        case "3":
+          JOptionPane.showMessageDialog(null, pilha.print());
+          break;
+        case "4":
+          JOptionPane.showMessageDialog(null, "Quantidade de Elementos é:" + pilha.size());
+          break;
+        case "5":
+          JOptionPane.showMessageDialog(null, "O topo é o elemento: " + pilha.top());
+          break;
+        case "6":
+          JOptionPane.showMessageDialog(null, "obrigado!");
+          continua = false;
+          break;
+        default:
+          JOptionPane.showMessageDialog(null, "Por favor, informe um valor válido");
+          break;
+      }
+    }
   }
 }

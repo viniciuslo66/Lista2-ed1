@@ -1,85 +1,59 @@
-/**
- * pilhaArray
- */
-public class VetorPilha<T> implements InterfacePilha<T> {
-
-  int tamanho;
-  private Object[] vetor;
-  int topo;
+public class VetorPilha<T> {
+  Object[] pilha;
+  int topo = -1;
 
   public VetorPilha(int tamanho) {
-    this.tamanho = tamanho;
-    this.vetor = new Object[tamanho];
-    this.topo = -1;
+    this.pilha = new Object[tamanho];
   }
 
-  @Override
-  public void empilhar(T valor) throws Exception {
-
-    if (topo == tamanho - 1) {
-      throw new Exception("\nError: pilha cheia [valor=" + valor + "]!!!\n");
-    }
-
-    topo += 1;
-    vetor[topo] = valor;
-  }
-
-  @SuppressWarnings("unchecked")
-  public T desempilhar() throws Exception {
-    T retorno;
-
-    if (topo == -1) {
-      throw new Exception("\nError: pilha vazia!!!\n");
-    }
-
-    retorno = (T) vetor[topo];
-    topo -= 1;
-
-    return retorno;
-  }
-
-  @SuppressWarnings("unchecked")
-  public T consultarPilha() {
-    T retorno;
-
-    if (topo == -1) {
-      throw new Exception("\nError: pilha vazia\n");
-    }
-
-    retorno = (T) vetor[topo];
-
-    return retorno;
-  }
-
-  @Override
-  public boolean vazia() {
-    if (topo == -1) {
-      return true;
+  public void push(Object valor) {
+    if (isFull()) {
+      System.out.println("Pilha Cheia");
     } else {
-      return false;
+      topo++;
+      pilha[topo] = valor;
     }
   }
 
-  @Override
-  public boolean cheia() {
-    if (topo == tamanho - 1) {
-      return true;
+  public Object pop() {
+    if (isEmpty()) {
+      System.out.println("A pilha já está vazia");
+      return null;
     } else {
-      return false;
+      Object retirado = pilha[topo];
+      pilha[topo] = null;
+      topo--;
+      return retirado;
     }
   }
 
-  @Override
-  public void mostrar() {
-    int i;
-
-    System.out.println("\nExibindo...\n");
-
-    for (i = 0; i <= topo; i++) {
-      System.out.println("posicao " + i + " = " + vetor[i]);
+  public Object top() {
+    if (isEmpty()) {
+      System.out.println("Pilha vazia");
+      return null;
+    } else {
+      return pilha[topo];
     }
-
-    System.out.println("topo index = " + topo);
-    System.out.println("--------------------");
   }
+
+  public String print() {
+    String valores = "";
+    for (int i = topo; i > -1; i--) {
+      valores = valores + pilha[i] + " ";
+    }
+    return valores;
+  }
+
+  public boolean isFull() {
+    return topo == pilha.length - 1;
+  }
+
+  public boolean isEmpty() {
+    return topo == -1;
+  }
+
+  public int size() {
+    return topo + 1;
+  }
+
 }
