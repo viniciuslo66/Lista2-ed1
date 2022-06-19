@@ -125,9 +125,9 @@ public class ListaDupla<T> {
 				ultimo = null;
 			} else {
 				System.out.println("Remove ultimo elemento, mas ha mais outros\n");
-				Node anterior = ultimo.anterior; // novidade
+				Node temp = ultimo.anterior; // novidade
 				ultimo.anterior = null; // novidade
-				ultimo = anterior;
+				ultimo = temp;
 				ultimo.proximo = null;
 			}
 			tamanho--;

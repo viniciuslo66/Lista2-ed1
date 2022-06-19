@@ -7,26 +7,17 @@ public class Quest8 {
 
 		VetorPilha<Integer> stack = new VetorPilha<Integer>(5);
 
-		String expression;
+		String expression = "8 1 + 2 -";
 		int result = 0;
-
-		System.out.println("Vamos fazer uma operação pós-fixa entre 3 números");
-		System.out.println("***********Exemplo: 8 1 + 2 - ***************");
-		System.out.println("***********Operações aceitas: + - * / ***************");
-
-		expression = scanner.nextLine();
-
+		
 		String[] split = expression.split(" ");
 
 		for (int i = 0; i < split.length; i++) {
 			if (isInteger(split[i])) {
 				stack.push(Integer.parseInt(split[i]));
-				// System.out.println(stack.peek());
 			} else {
 				int number2 = (int) stack.pop();
-				// System.out.println(stack.peek());
 				int number1 = (int) stack.pop();
-				// System.out.println(stack.peek());
 
 				if (split[i].equals("+")) {
 					result = number1 + number2;
@@ -45,6 +36,7 @@ public class Quest8 {
 
 		System.out.println("Resultado: " + result);
 
+		scanner.close();
 	}
 
 	public static boolean isInteger(String input) {
@@ -55,5 +47,4 @@ public class Quest8 {
 			return false;
 		}
 	}
-
 }
