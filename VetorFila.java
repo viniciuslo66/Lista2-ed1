@@ -28,14 +28,14 @@ public class VetorFila<T> {
 
   Object desenfileirar() {
     if (!isEmpty()) {
-      Object tep = vetor[inicio];
+      Object temp = vetor[inicio];
       vetor[inicio] = null;
       inicio++;
       if (inicio == vetor.length) {
         inicio = 0;
       }
       tamanho--;
-      return tep;
+      return temp;
     } else {
       System.out.println("Fila vazia");
       return null;

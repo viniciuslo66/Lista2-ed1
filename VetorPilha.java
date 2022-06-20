@@ -7,7 +7,7 @@ public class VetorPilha<T> {
   }
 
   public void push(Object valor) {
-    if (isFull()) {
+    if (topo == pilha.length - 1) {
       System.out.println("Pilha Cheia");
     } else {
       topo++;
@@ -16,7 +16,7 @@ public class VetorPilha<T> {
   }
 
   public Object pop() {
-    if (isEmpty()) {
+    if (topo == -1) {
       System.out.println("A pilha já está vazia");
       return null;
     } else {
@@ -28,7 +28,7 @@ public class VetorPilha<T> {
   }
 
   public Object top() {
-    if (isEmpty()) {
+    if (topo == -1) {
       System.out.println("Pilha vazia");
       return null;
     } else {
@@ -42,14 +42,6 @@ public class VetorPilha<T> {
       valores = valores + pilha[i] + " ";
     }
     return valores;
-  }
-
-  public boolean isFull() {
-    return topo == pilha.length - 1;
-  }
-
-  public boolean isEmpty() {
-    return topo == -1;
   }
 
   public int size() {
